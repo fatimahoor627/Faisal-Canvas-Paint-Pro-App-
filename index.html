@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Canvas Paint Pro — Complete 100+ Tool Studio Suite</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Pacifico&family=Playfair+Display:ital,wght@0,600;1,600&family=Impact&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="dark-charcoal-theme">
+  <!-- App Container (5-Zone Modular Layout) -->
+  <div id="app" class="studio-layout">
+
+    <!-- =========================================================================
+         ZONE 1: TOP MENUBAR & DYNAMIC PROPERTIES RIBBON
+         ========================================================================= -->
+    <header id="top-bar" class="studio-header">
+      <div class="brand-group">
+        <div class="brand-logo" title="Canvas Paint Pro Studio">
+          <i class="fa-solid fa-wand-magic-sparkles"></i>
+        </div>
+        <div class="brand-title">
+          <span class="brand-name">Canvas Paint<span class="pro-badge">ULTRA</span></span>
+        </div>
+      </div>
+
+      <!-- Main Navigation Menu -->
+      <nav class="studio-menu">
+        <div class="menu-item dropdown">
+          <button class="menu-trigger" id="menu-file">File</button>
+          <div class="dropdown-panel">
+            <button class="menu-action" id="action-new"><i class="fa-solid fa-file"></i> New Canvas <span class="shortcut">Ctrl+N</span></button>
+            <button class="menu-action" id="action-open"><i class="fa-solid fa-folder-open"></i> Open Image / Project <span class="shortcut">Ctrl+O</span></button>
+            <div class="menu-divider"></div>
+            <button class="menu-action" id="action-save-json"><i class="fa-solid fa-floppy-disk"></i> Save Project (.json) <span class="shortcut">Ctrl+S</span></button>
+            <button class="menu-action" id="action-export-png"><i class="fa-solid fa-file-image"></i> Export PNG (1x/2x/4x)</button>
+            <button class="menu-action" id="action-export-jpg"><i class="fa-solid fa-file-image"></i> Export JPEG</button>
+            <button class="menu-action" id="action-export-webp"><i class="fa-solid fa-image"></i> Export WebP</button>
+            <button class="menu-action" id="action-export-svg"><i class="fa-solid fa-bezier-curve"></i> Export Vector SVG</button>
+            <button class="menu-action" id="action-export-pdf"><i class="fa-solid fa-file-pdf"></i> Export Multi-Page PDF</button>
+            <div class="menu-divider"></div>
+            <button class="menu-action" id="action-print"><i class="fa-solid fa-print"></i> High-DPI Print Studio <span class="shortcut">Ctrl+P</span></button>
+            <input type="file" id="file-input" accept="image/*,.json" style="display:none">
+          </div>
+        </div>
+
+        <div class="menu-item dropdown">
+          <button class="menu-trigger" id="menu-edit">Edit</button>
+          <div class="dropdown-panel">
+            <button class="menu-action" id="menu-undo"><i class="fa-solid fa-rotate-left"></i> Undo <span class="shortcut">Ctrl+Z</span></button>
+            <button class="menu-action" id="menu-redo"><i class="fa-solid fa-rotate-right"></i> Redo <span class="shortcut">Ctrl+Y</span></button>
+            <div class="menu-divider"></div>
+            <button class="menu-action" id="menu-cut"><i class="fa-solid fa-scissors"></i> Cut Selection <span class="shortcut">Ctrl+X</span></button>
+            <button class="menu-action" id="menu-copy"><i class="fa-solid fa-copy"></i> Copy Selection <span class="shortcut">Ctrl+C</span></button>
+            <button class="menu-action" id="menu-paste"><i class="fa-solid fa-paste"></i> Paste as Layer <span class="shortcut">Ctrl+V</span></button>
+            <div class="menu-divider"></div>
+            <button class="menu-action" id="menu-free-transform"><i class="fa-solid fa-up-down-left-right"></i> Free Transform <span class="shortcut">Ctrl+T</span></button>
+            <button class="menu-action" id="menu-find-replace"><i class="fa-solid fa-magnifying-glass"></i> Find and Replace... <span class="shortcut">Ctrl+F</span></button>
+            <button class="menu-action" id="menu-select-all"><i class="fa-solid fa-object-group"></i> Select All <span class="shortcut">Ctrl+A</span></button>
+            <button class="menu-action" id="menu-deselect"><i class="fa-solid fa-xmark"></i> Deselect <span class="shortcut">Ctrl+D</span></button>
+            <div class="menu-divider"></div>
+            <button class="menu-action" id="menu-clear-layer"><i class="fa-solid fa-trash-can"></i> Clear Active Layer</button>
+            <button class="menu-action" id="menu-fill-layer"><i class="fa-solid fa-fill-drip"></i> Fill Layer with Color</button>
+          </div>
+        </div>
+
+        <div class="menu-item dropdown">
+          <button class="menu-trigger" id="menu-image">Image</button>
+          <div class="dropdown-panel">
+            <button class="menu-action" id="menu-resize-canvas"><i class="fa-solid fa-expand"></i> Resize Canvas Size...</button>
+            <button class="menu-action" id="menu-crop-canvas"><i class="fa-solid fa-crop-simple"></i> Fit to View</button>
+            <div class="menu-divider"></div>
+            <button class="menu-action" id="menu-flip-h"><i class="fa-solid fa-arrows-left-right"></i> Flip Horizontal</button>
+            <button class="menu-action" id="menu-flip-v"><i class="fa-solid fa-arrows-up-down"></i> Flip Vertical</button>
+            <button class="menu-action" id="menu-rotate-cw"><i class="fa-solid fa-rotate-right"></i> Rotate 90° Clockwise</button>
+            <div class="menu-divider"></div>
+            <button class="menu-action" id="menu-bg-remove"><i class="fa-solid fa-wand-magic-sparkles"></i> AI Background Remover</button>
+            <button class="menu-action" id="menu-extract-palette"><i class="fa-solid fa-palette"></i> Extract Color Palette</button>
+          </div>
+        </div>
+
+        <div class="menu-item dropdown">
+          <button class="menu-trigger" id="menu-layer">Layer</button>
+          <div class="dropdown-panel">
+            <button class="menu-action" id="menu-new-layer"><i class="fa-solid fa-layer-group"></i> New Layer <span class="shortcut">Ctrl+Shift+N</span></button>
+            <button class="menu-action" id="menu-duplicate-layer"><i class="fa-solid fa-copy"></i> Duplicate Layer <span class="shortcut">Ctrl+J</span></button>
+            <button class="menu-action" id="menu-delete-layer"><i class="fa-solid fa-trash"></i> Delete Active Layer</button>
+            <div class="menu-divider"></div>
+            <button class="menu-action" id="menu-add-mask"><i class="fa-solid fa-masks-theater"></i> Add Layer Mask</button>
+            <button class="menu-action" id="menu-clip-mask"><i class="fa-solid fa-paperclip"></i> Toggle Clipping Mask</button>
+            <button class="menu-action" id="menu-frame-mask"><i class="fa-solid fa-shapes"></i> Image Frame Mask (Circle/Heart/Star)...</button>
+            <div class="menu-divider"></div>
+            <button class="menu-action" id="menu-merge-down"><i class="fa-solid fa-arrow-down-short-wide"></i> Merge Down</button>
+            <button class="menu-action" id="menu-flatten"><i class="fa-solid fa-compress"></i> Flatten Image</button>
+            <button class="menu-action" id="menu-burn-vectors"><i class="fa-solid fa-stamp"></i> Rasterize Vector/Canva Objects</button>
+          </div>
+        </div>
+
+        <div class="menu-item dropdown">
+          <button class="menu-trigger" id="menu-insert">Insert</button>
+          <div class="dropdown-panel">
+            <button class="menu-action" id="action-insert-text"><i class="fa-solid fa-font"></i> Word Rich Text Box</button>
+            <button class="menu-action" id="action-insert-chart"><i class="fa-solid fa-chart-column"></i> Excel Chart (Bar/Line/Pie/Scatter)...</button>
+            <button class="menu-action" id="action-insert-table"><i class="fa-solid fa-table"></i> Excel Spreadsheet Data Grid...</button>
+            <button class="menu-action" id="action-insert-badge"><i class="fa-solid fa-certificate"></i> Vector Badge / Ribbon</button>
+            <button class="menu-action" id="action-insert-sticker"><i class="fa-solid fa-icons"></i> Canva Graphic Asset Library...</button>
+          </div>
+        </div>
+
+        <div class="menu-item dropdown">
+          <button class="menu-trigger" id="menu-view">View</button>
+          <div class="dropdown-panel">
+            <button class="menu-action" id="menu-zoom-in"><i class="fa-solid fa-magnifying-glass-plus"></i> Zoom In <span class="shortcut">Ctrl++</span></button>
+            <button class="menu-action" id="menu-zoom-out"><i class="fa-solid fa-magnifying-glass-minus"></i> Zoom Out <span class="shortcut">Ctrl+-</span></button>
+            <button class="menu-action" id="menu-zoom-100"><i class="fa-solid fa-expand"></i> Actual Size (100%) <span class="shortcut">Ctrl+0</span></button>
+            <button class="menu-action" id="menu-zoom-fit"><i class="fa-solid fa-arrows-to-eye"></i> Fit on Screen</button>
+            <div class="menu-divider"></div>
+            <label class="menu-checkbox-item">
+              <input type="checkbox" id="toggle-grid" checked>
+              <span>Show Pixel / Layout Grid</span>
+            </label>
+            <label class="menu-checkbox-item">
+              <input type="checkbox" id="toggle-rulers" checked>
+              <span>Show Pixel Rulers</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Suite Mode Tabs -->
+        <div class="studio-mode-tabs">
+          <button class="mode-tab active" data-mode="paint" title="MS Paint & Basic Canvas"><i class="fa-solid fa-paint-brush"></i> Paint</button>
+          <button class="mode-tab" data-mode="photo" title="Photoshop Layer, Selection & Filters"><i class="fa-solid fa-wand-magic"></i> Photo</button>
+          <button class="mode-tab" data-mode="vector" title="Vector & Illustrator Tools"><i class="fa-solid fa-bezier-curve"></i> Vector</button>
+          <button class="mode-tab" data-mode="doc" title="Word & Canva Rich Text & Elements"><i class="fa-solid fa-file-lines"></i> Doc/Canva</button>
+          <button class="mode-tab" data-mode="slides" title="PowerPoint Presentation Slides"><i class="fa-solid fa-file-powerpoint"></i> Slides</button>
+        </div>
+      </nav>
+
+      <!-- Quick Action Controls -->
+      <div class="header-quick-actions">
+        <button class="action-btn" id="header-btn-undo" title="Undo (Ctrl+Z)"><i class="fa-solid fa-arrow-rotate-left"></i></button>
+        <button class="action-btn" id="header-btn-redo" title="Redo (Ctrl+Y)"><i class="fa-solid fa-arrow-rotate-right"></i></button>
+        <div class="action-divider"></div>
+        <button class="action-btn presentation-btn" id="header-btn-present" title="Start Fullscreen Presentation (F5)"><i class="fa-solid fa-play"></i> Present</button>
+        <button class="action-btn primary-glow" id="header-btn-export" title="Export High-Res Artwork"><i class="fa-solid fa-download"></i> Export</button>
+      </div>
+    </header>
+
+    <!-- Context Ribbon Property Bar (Updates Dynamically per Active Tool) -->
+    <section id="context-bar" class="context-toolbar">
+      <div class="context-group tool-identity">
+        <span class="active-tool-icon" id="ctx-tool-icon"><i class="fa-solid fa-paintbrush"></i></span>
+        <span class="active-tool-label" id="ctx-tool-name">Brush</span>
+      </div>
+
+      <div class="context-separator"></div>
+
+      <!-- Paint / Retouch Properties -->
+      <div class="context-group" id="ctx-brush-settings">
+        <label class="ctx-label" for="brush-sub-type">Type:</label>
+        <select id="brush-sub-type" class="studio-select">
+          <option value="normal">Standard Antialiased</option>
+          <option value="oil">Oil Paint</option>
+          <option value="watercolor">Watercolor</option>
+          <option value="airbrush">Airbrush / Spray</option>
+          <option value="calligraphy">Calligraphy</option>
+          <option value="marker">Highlighter Marker</option>
+        </select>
+
+        <label class="ctx-label" for="brush-size">Size:</label>
+        <input type="range" id="brush-size" min="1" max="150" value="8" class="studio-slider">
+        <span class="slider-val" id="brush-size-val">8px</span>
+
+        <label class="ctx-label" for="brush-opacity">Opacity:</label>
+        <input type="range" id="brush-opacity" min="1" max="100" value="100" class="studio-slider">
+        <span class="slider-val" id="brush-opacity-val">100%</span>
+
+        <label class="ctx-label" for="brush-hardness">Hardness:</label>
+        <input type="range" id="brush-hardness" min="1" max="100" value="90" class="studio-slider">
+        <span class="slider-val" id="brush-hardness-val">90%</span>
+      </div>
+
+      <!-- Shapes Specific Settings -->
+      <div class="context-group hidden" id="ctx-shape-settings">
+        <label class="ctx-label" for="shape-type">Shape:</label>
+        <select id="shape-type" class="studio-select">
+          <option value="rectangle">Rectangle</option>
+          <option value="rounded-rect">Rounded Rect</option>
+          <option value="circle">Circle / Ellipse</option>
+          <option value="triangle">Triangle</option>
+          <option value="right-triangle">Right Triangle</option>
+          <option value="diamond">Diamond</option>
+          <option value="pentagon">Pentagon</option>
+          <option value="hexagon">Hexagon</option>
+          <option value="star">Star (5-point)</option>
+          <option value="star-4">Star (4-point)</option>
+          <option value="star-5">Star (5-point)</option>
+          <option value="star-6">Star (6-point)</option>
+          <option value="heart">Heart</option>
+          <option value="lightning">Lightning</option>
+          <option value="arrow-right">Right Arrow</option>
+          <option value="arrow-left">Left Arrow</option>
+          <option value="arrow-up">Up Arrow</option>
+          <option value="arrow-down">Down Arrow</option>
+          <option value="line">Straight Line</option>
+          <option value="curve">Bezier Curve</option>
+          <option value="speech-bubble">Speech Bubble</option>
+          <option value="cloud-callout">Cloud Callout</option>
+        </select>
+
+        <label class="ctx-checkbox">
+          <input type="checkbox" id="shape-fill-toggle" checked>
+          <span>Fill</span>
+        </label>
+        <label class="ctx-checkbox">
+          <input type="checkbox" id="shape-stroke-toggle" checked>
+          <span>Outline</span>
+        </label>
+        <span class="badge-alert" id="shape-settings-title">Rectangle options</span>
+        <label class="ctx-label" for="shape-corner-radius">Round:</label>
+        <input type="range" id="shape-corner-radius" min="0" max="100" value="24" class="studio-slider" title="Rounded rectangle corner radius">
+        <label class="ctx-label" for="shape-star-inner">Star:</label>
+        <input type="range" id="shape-star-inner" min="15" max="80" value="50" class="studio-slider" title="Star inner-point size">
+        <label class="ctx-label" for="shape-curve-bend">Curve:</label>
+        <input type="range" id="shape-curve-bend" min="0" max="100" value="40" class="studio-slider" title="Curve bend amount">
+        <div class="shapes-palette-section top-shapes-palette" aria-label="Paint shape picker">
+          <div class="shapes-palette-header"><span>Choose Shape</span><i class="fa-solid fa-shapes"></i></div>
+          <div class="shapes-gallery-grid" id="ms-paint-shapes-grid">
+            <button class="shape-grid-btn" data-shape="line" title="Straight Line"><i class="fa-solid fa-minus"></i></button>
+            <button class="shape-grid-btn" data-shape="curve" title="Bezier Curve"><i class="fa-solid fa-bezier-curve"></i></button>
+            <button class="shape-grid-btn active" data-shape="rectangle" title="Rectangle"><i class="fa-regular fa-square"></i></button>
+            <button class="shape-grid-btn" data-shape="rounded-rect" title="Rounded Rectangle"><i class="fa-solid fa-square"></i></button>
+            <button class="shape-grid-btn" data-shape="circle" title="Circle / Ellipse"><i class="fa-regular fa-circle"></i></button>
+            <button class="shape-grid-btn" data-shape="triangle" title="Triangle"><i class="fa-solid fa-play fa-rotate-270"></i></button>
+            <button class="shape-grid-btn" data-shape="right-triangle" title="Right Triangle"><i class="fa-solid fa-caret-up"></i></button>
+            <button class="shape-grid-btn" data-shape="diamond" title="Diamond"><i class="fa-solid fa-diamond"></i></button>
+            <button class="shape-grid-btn" data-shape="pentagon" title="Pentagon"><i class="fa-solid fa-draw-polygon"></i></button>
+            <button class="shape-grid-btn" data-shape="hexagon" title="Hexagon"><i class="fa-solid fa-cube"></i></button>
+            <button class="shape-grid-btn" data-shape="arrow-right" title="Right Arrow"><i class="fa-solid fa-arrow-right"></i></button>
+            <button class="shape-grid-btn" data-shape="arrow-left" title="Left Arrow"><i class="fa-solid fa-arrow-left"></i></button>
+            <button class="shape-grid-btn" data-shape="arrow-up" title="Up Arrow"><i class="fa-solid fa-arrow-up"></i></button>
+            <button class="shape-grid-btn" data-shape="arrow-down" title="Down Arrow"><i class="fa-solid fa-arrow-down"></i></button>
+            <button class="shape-grid-btn" data-shape="star-4" title="4-Point Star"><i class="fa-solid fa-asterisk"></i></button>
+            <button class="shape-grid-btn" data-shape="star-5" title="5-Point Star"><i class="fa-solid fa-star"></i></button>
+            <button class="shape-grid-btn" data-shape="star-6" title="6-Point Star"><i class="fa-solid fa-certificate"></i></button>
+            <button class="shape-grid-btn" data-shape="heart" title="Heart Shape"><i class="fa-solid fa-heart"></i></button>
+            <button class="shape-grid-btn" data-shape="lightning" title="Lightning Bolt"><i class="fa-solid fa-bolt"></i></button>
+            <button class="shape-grid-btn" data-shape="speech-bubble" title="Speech Bubble"><i class="fa-solid fa-comment"></i></button>
+            <button class="shape-grid-btn" data-shape="cloud-callout" title="Cloud Callout"><i class="fa-solid fa-cloud"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Word & Canva Rich Text Controls -->
+      <div class="context-group hidden" id="ctx-text-settings">
+        <select id="text-font-family" class="studio-select">
+          <option value="Inter">Inter</option>
+          <option value="Roboto">Roboto</option>
+          <option value="Playfair Display">Playfair Display</option>
+          <option value="JetBrains Mono">JetBrains Mono</option>
+          <option value="Pacifico">Pacifico</option>
+          <option value="Impact">Impact</option>
+        </select>
+        <input type="number" id="text-font-size" value="36" min="8" max="160" class="studio-input mini-input" title="Font Size">
+        
+        <div class="btn-toggle-group">
+          <button class="ctx-icon-btn" id="btn-text-bold" title="Bold (Ctrl+B)"><i class="fa-solid fa-bold"></i></button>
+          <button class="ctx-icon-btn" id="btn-text-italic" title="Italic (Ctrl+I)"><i class="fa-solid fa-italic"></i></button>
+          <button class="ctx-icon-btn" id="btn-text-underline" title="Underline (Ctrl+U)"><i class="fa-solid fa-underline"></i></button>
+          <button class="ctx-icon-btn" id="btn-text-strike" title="Strikethrough"><i class="fa-solid fa-strikethrough"></i></button>
+        </div>
+
+        <div class="btn-toggle-group">
+          <button class="ctx-icon-btn active" id="btn-text-align-left" title="Align Left"><i class="fa-solid fa-align-left"></i></button>
+          <button class="ctx-icon-btn" id="btn-text-align-center" title="Align Center"><i class="fa-solid fa-align-center"></i></button>
+          <button class="ctx-icon-btn" id="btn-text-align-right" title="Align Right"><i class="fa-solid fa-align-right"></i></button>
+        </div>
+
+        <button class="studio-btn mini" id="btn-text-curved-toggle" title="Curved Arc Text Path"><i class="fa-solid fa-bezier-curve"></i> Curve</button>
+        <button class="studio-btn mini" id="btn-text-edit-content" title="Edit Text Content"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
+      </div>
+
+      <!-- Move Tool Settings -->
+      <div class="context-group hidden" id="ctx-move-settings">
+        <label class="ctx-checkbox">
+          <input type="checkbox" id="move-auto-select" checked>
+          <span>Auto-Select Layer</span>
+        </label>
+        <span class="badge-alert" id="move-layer-name"><i class="fa-solid fa-arrows-up-down-left-right"></i> Move Active Layer</span>
+      </div>
+
+      <!-- Free Transform Actions Bar -->
+      <div class="context-group hidden" id="ctx-transform-settings">
+        <span class="badge-alert"><i class="fa-solid fa-arrows-up-down-left-right"></i> Free Transform</span>
+        <button class="studio-btn primary mini" id="btn-apply-transform"><i class="fa-solid fa-check"></i> Apply (Enter)</button>
+        <button class="studio-btn secondary mini" id="btn-cancel-transform"><i class="fa-solid fa-xmark"></i> Cancel (Esc)</button>
+      </div>
+
+      <!-- Auto-Layer & Cursor Quick Mode Buttons -->
+      <div class="context-group">
+        <button class="studio-btn mini auto-layer-toggle-btn active" id="btn-toggle-auto-layer" title="Auto-Layer: Automatically creates a new layer on every drawing stroke / shape / element (Click to toggle)">
+          <i class="fa-solid fa-layer-group"></i> <span id="auto-layer-text">Auto-Layer: ON</span>
+        </button>
+        <button class="studio-btn mini" id="btn-toggle-caps-cursor" title="Toggle Circular Brush Preview vs Precision Crosshair (Caps Lock)">
+          <i class="fa-solid fa-circle-dot"></i> <span id="caps-cursor-text">Circle Cursor</span>
+        </button>
+      </div>
+
+      <div class="context-separator"></div>
+
+      <!-- Primary & Secondary Color Swatches -->
+      <div class="context-group color-dock">
+        <div class="color-swatch-box" title="Click to pick Primary Color">
+          <div class="swatch secondary-swatch" id="secondary-swatch-display" style="background-color: #ffffff;"></div>
+          <div class="swatch primary-swatch" id="primary-swatch-display" style="background-color: #3b82f6;"></div>
+          <input type="color" id="primary-color-picker" value="#3b82f6" class="hidden-picker">
+          <input type="color" id="secondary-color-picker" value="#ffffff" class="hidden-picker">
+        </div>
+        <button class="swap-colors-btn" id="swap-colors-btn" title="Swap Foreground / Background Colors (X)"><i class="fa-solid fa-repeat"></i></button>
+        <button class="reset-colors-btn" id="reset-colors-btn" title="Default Black / White (D)"><i class="fa-solid fa-square-full"></i></button>
+
+        <!-- Quick Palette -->
+        <div class="quick-palette" id="quick-palette-dock">
+          <span class="palette-dot" style="background:#000000" data-color="#000000"></span>
+          <span class="palette-dot" style="background:#ffffff" data-color="#ffffff"></span>
+          <span class="palette-dot" style="background:#ef4444" data-color="#ef4444"></span>
+          <span class="palette-dot" style="background:#f59e0b" data-color="#f59e0b"></span>
+          <span class="palette-dot" style="background:#10b981" data-color="#10b981"></span>
+          <span class="palette-dot" style="background:#3b82f6" data-color="#3b82f6"></span>
+          <span class="palette-dot" style="background:#8b5cf6" data-color="#8b5cf6"></span>
+          <span class="palette-dot" style="background:#ec4899" data-color="#ec4899"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         ZONE 2 & 3 & 4: MAIN STUDIO BODY
+         ========================================================================= -->
+    <main class="studio-workspace-container">
+
+      <!-- =====================================================================
+           ZONE 2: LEFT SECTIONED ACCORDION TOOL DOCK (100+ TOOLS)
+           ===================================================================== -->
+      <aside id="left-toolbox" class="studio-toolbox accordion-toolbox">
+
+        <!-- Top Primary Dock: Dedicated Move Tool & Selector (Photoshop standard #1 tool) -->
+        <div class="tool-section primary-tool-dock" style="display:flex; gap:4px; padding:6px; border-bottom:1px solid var(--border-subtle);">
+          <button class="tool-btn active" data-tool="move" id="tool-move" title="Move Tool (V) - Move Layer Contents freely">
+            <i class="fa-solid fa-arrows-up-down-left-right"></i>
+            <span class="tool-tip">Move (V)</span>
+          </button>
+          <button class="tool-btn" data-tool="select" id="tool-select" title="Object / Node Selector">
+            <i class="fa-solid fa-arrow-pointer"></i>
+            <span class="tool-tip">Select</span>
+          </button>
+        </div>
+
+        <!-- Accordion Section A: MS Paint & Basic Canvas Tools -->
+        <div class="tool-accordion-group">
+          <div class="accordion-header active" data-accordion="paint" title="MS Paint & Basic Canvas Tools">
+            <i class="fa-solid fa-paint-brush"></i>
+            <span class="accordion-title">MS Paint</span>
+            <i class="fa-solid fa-chevron-down accordion-arrow"></i>
+          </div>
+          <div class="accordion-body active" id="acc-body-paint">
+            <button class="tool-btn" data-tool="brush" id="tool-brush" title="Paint Brush (B)">
+              <i class="fa-solid fa-paintbrush"></i>
+              <span class="tool-tip">Brush (B)</span>
+            </button>
+            <button class="tool-btn" data-tool="pencil" id="tool-pencil" title="Pencil Tool (P)">
+              <i class="fa-solid fa-pencil"></i>
+              <span class="tool-tip">Pencil (P)</span>
+            </button>
+            <button class="tool-btn" data-tool="eraser" id="tool-eraser" title="Eraser Tool (E)">
+              <i class="fa-solid fa-eraser"></i>
+              <span class="tool-tip">Eraser (E)</span>
+            </button>
+            <button class="tool-btn" data-tool="bucket" id="tool-bucket" title="Paint Bucket / Flood Fill (G)">
+              <i class="fa-solid fa-fill-drip"></i>
+              <span class="tool-tip">Flood Fill (G)</span>
+            </button>
+            <button class="tool-btn" data-tool="eyedropper" id="tool-eyedropper" title="Eyedropper / Color Picker (I)">
+              <i class="fa-solid fa-eye-dropper"></i>
+              <span class="tool-tip">Eyedropper (I)</span>
+            </button>
+            <button class="tool-btn" data-tool="shape" id="tool-shape" title="Shape Tool — choose a shape from the top ribbon (U)">
+              <i class="fa-solid fa-shapes"></i>
+              <span class="tool-tip">Shape Tool (U)</span>
+            </button>
+
+          </div>
+        </div>
+
+        <!-- Accordion Section B: Photoshop Selection & Crop -->
+        <div class="tool-accordion-group">
+          <div class="accordion-header" data-accordion="select" title="Photoshop Selection & Crop Tools">
+            <i class="fa-regular fa-square"></i>
+            <span class="accordion-title">Selection</span>
+            <i class="fa-solid fa-chevron-down accordion-arrow"></i>
+          </div>
+          <div class="accordion-body" id="acc-body-select">
+            <button class="tool-btn" data-tool="marquee" id="tool-marquee" title="Rectangular Marquee Selection (M)">
+              <i class="fa-regular fa-square"></i>
+              <span class="tool-tip">Rect Marquee (M)</span>
+            </button>
+            <button class="tool-btn" data-tool="marquee-ellipse" id="tool-marquee-ellipse" title="Elliptical Marquee Selection">
+              <i class="fa-regular fa-circle"></i>
+              <span class="tool-tip">Ellipse Marquee</span>
+            </button>
+            <button class="tool-btn" data-tool="lasso" id="tool-lasso" title="Freehand Lasso Selection (L)">
+              <i class="fa-solid fa-wand-magic"></i>
+              <span class="tool-tip">Freehand Lasso (L)</span>
+            </button>
+            <button class="tool-btn" data-tool="poly-lasso" id="tool-poly-lasso" title="Polygonal Lasso Tool">
+              <i class="fa-solid fa-draw-polygon"></i>
+              <span class="tool-tip">Polygonal Lasso</span>
+            </button>
+            <button class="tool-btn" data-tool="magnetic-lasso" id="tool-magnetic-lasso" title="Magnetic Edge Snapping Lasso">
+              <i class="fa-solid fa-magnet"></i>
+              <span class="tool-tip">Magnetic Lasso</span>
+            </button>
+            <button class="tool-btn" data-tool="quick-select" id="tool-quick-select" title="Quick Selection Brush">
+              <i class="fa-solid fa-paintbrush"></i>
+              <span class="tool-tip">Quick Selection</span>
+            </button>
+            <button class="tool-btn" data-tool="wand" id="tool-wand" title="Magic Wand Tool (W)">
+              <i class="fa-solid fa-wand-magic-sparkles"></i>
+              <span class="tool-tip">Magic Wand (W)</span>
+            </button>
+            <button class="tool-btn" data-tool="crop" id="tool-crop" title="Crop & Straighten Canvas Tool (C)">
+              <i class="fa-solid fa-crop-simple"></i>
+              <span class="tool-tip">Crop (C)</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Accordion Section C: Photoshop Retouching & Brushes -->
+        <div class="tool-accordion-group">
+          <div class="accordion-header" data-accordion="retouch" title="Photoshop Retouching & Retouch Brushes">
+            <i class="fa-solid fa-stamp"></i>
+            <span class="accordion-title">Retouch</span>
+            <i class="fa-solid fa-chevron-down accordion-arrow"></i>
+          </div>
+          <div class="accordion-body" id="acc-body-retouch">
+            <button class="tool-btn" data-tool="spot-healing" id="tool-spot-healing" title="Spot Healing Brush Tool (J)">
+              <i class="fa-solid fa-bandage"></i>
+              <span class="tool-tip">Spot Healing (J)</span>
+            </button>
+            <button class="tool-btn" data-tool="healing-brush" id="tool-healing-brush" title="Healing Brush Tool (Alt+Click to sample)">
+              <i class="fa-solid fa-stethoscope"></i>
+              <span class="tool-tip">Healing Brush</span>
+            </button>
+            <button class="tool-btn" data-tool="patch" id="tool-patch" title="Patch Tool (Content selection replacement)">
+              <i class="fa-solid fa-shield-halved"></i>
+              <span class="tool-tip">Patch Tool</span>
+            </button>
+            <button class="tool-btn" data-tool="clone" id="tool-clone" title="Clone Stamp Tool (Alt+Click to sample source) (S)">
+              <i class="fa-solid fa-stamp"></i>
+              <span class="tool-tip">Clone Stamp (S)</span>
+            </button>
+            <button class="tool-btn" data-tool="pattern-stamp" id="tool-pattern-stamp" title="Pattern Stamp Tool">
+              <i class="fa-solid fa-chess-board"></i>
+              <span class="tool-tip">Pattern Stamp</span>
+            </button>
+            <button class="tool-btn" data-tool="history-brush" id="tool-history-brush" title="History Brush Tool (Revert strokes) (Y)">
+              <i class="fa-solid fa-clock-rotate-left"></i>
+              <span class="tool-tip">History Brush (Y)</span>
+            </button>
+            <button class="tool-btn" data-tool="dodge" id="tool-dodge" title="Dodge Tool (Lighten Pixels) (O)">
+              <i class="fa-solid fa-sun"></i>
+              <span class="tool-tip">Dodge (Lighten)</span>
+            </button>
+            <button class="tool-btn" data-tool="burn" id="tool-burn" title="Burn Tool (Darken Pixels)">
+              <i class="fa-solid fa-moon"></i>
+              <span class="tool-tip">Burn (Darken)</span>
+            </button>
+            <button class="tool-btn" data-tool="sponge" id="tool-sponge" title="Sponge Tool (Saturate / Desaturate)">
+              <i class="fa-solid fa-sponge"></i>
+              <span class="tool-tip">Sponge</span>
+            </button>
+            <button class="tool-btn" data-tool="blur-tool" id="tool-blur-tool" title="Blur Retouch Brush">
+              <i class="fa-solid fa-droplet"></i>
+              <span class="tool-tip">Blur Brush</span>
+            </button>
+            <button class="tool-btn" data-tool="sharpen-tool" id="tool-sharpen-tool" title="Sharpen Retouch Brush">
+              <i class="fa-solid fa-gem"></i>
+              <span class="tool-tip">Sharpen Brush</span>
+            </button>
+            <button class="tool-btn" data-tool="smudge" id="tool-smudge" title="Smudge Finger Tool">
+              <i class="fa-solid fa-hand-pointer"></i>
+              <span class="tool-tip">Smudge Tool</span>
+            </button>
+            <button class="tool-btn" data-tool="gradient" id="tool-gradient" title="Gradient Tool (Linear & Radial) (G)">
+              <i class="fa-solid fa-sliders"></i>
+              <span class="tool-tip">Gradient Tool (G)</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Accordion Section D: Vector, Type & Office Suite -->
+        <div class="tool-accordion-group">
+          <div class="accordion-header" data-accordion="vector" title="Vector, Typography & Office Tools">
+            <i class="fa-solid fa-bezier-curve"></i>
+            <span class="accordion-title">Vector/Office</span>
+            <i class="fa-solid fa-chevron-down accordion-arrow"></i>
+          </div>
+          <div class="accordion-body" id="acc-body-vector">
+            <button class="tool-btn" data-tool="pen" id="tool-pen" title="Pen Tool (Bézier curve creation) (P)">
+              <i class="fa-solid fa-pen-nib"></i>
+              <span class="tool-tip">Pen Tool (P)</span>
+            </button>
+            <button class="tool-btn" data-tool="node-select" id="tool-node-select" title="Direct Selection Node Tool (A)">
+              <i class="fa-regular fa-paper-plane"></i>
+              <span class="tool-tip">Node Select (A)</span>
+            </button>
+            <button class="tool-btn" data-tool="text" id="tool-text" title="Word Rich Text Tool (T)">
+              <i class="fa-solid fa-font"></i>
+              <span class="tool-tip">Text (T)</span>
+            </button>
+            <button class="tool-btn" data-tool="assets" id="tool-assets" title="Canva Graphic Asset Library">
+              <i class="fa-solid fa-icons"></i>
+              <span class="tool-tip">Canva Assets</span>
+            </button>
+            <button class="tool-btn" data-tool="charts" id="tool-charts" title="Excel Chart & Table Generator">
+              <i class="fa-solid fa-chart-pie"></i>
+              <span class="tool-tip">Excel Charts</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Final utility drawer: shortcuts to available Paint, Photoshop, Word and Excel functions. -->
+        <div class="tool-accordion-group">
+          <div class="accordion-header" data-accordion="extra" title="Extra Paint, Photoshop and Office tools">
+            <i class="fa-solid fa-toolbox"></i>
+            <span class="accordion-title">Extra Tools</span>
+            <i class="fa-solid fa-chevron-down accordion-arrow"></i>
+          </div>
+          <div class="accordion-body" id="acc-body-extra">
+            <button class="tool-btn" data-extra-action="free-transform" title="Photoshop Free Transform"><i class="fa-solid fa-expand"></i><span class="tool-tip">Free Transform</span></button>
+            <button class="tool-btn" data-extra-action="remove-background" title="Remove flat background"><i class="fa-solid fa-wand-magic-sparkles"></i><span class="tool-tip">Background Remove</span></button>
+            <button class="tool-btn" data-extra-action="extract-palette" title="Extract image colors"><i class="fa-solid fa-palette"></i><span class="tool-tip">Extract Palette</span></button>
+            <button class="tool-btn" data-extra-action="insert-text" title="Insert Word-style rich text"><i class="fa-solid fa-font"></i><span class="tool-tip">Insert Text</span></button>
+            <button class="tool-btn" data-extra-action="insert-table" title="Insert Excel table"><i class="fa-solid fa-table"></i><span class="tool-tip">Excel Table</span></button>
+            <button class="tool-btn" data-extra-action="insert-chart" title="Insert Excel chart"><i class="fa-solid fa-chart-column"></i><span class="tool-tip">Excel Chart</span></button>
+            <button class="tool-btn" data-extra-action="fill-layer" title="Fill active layer using primary color"><i class="fa-solid fa-fill-drip"></i><span class="tool-tip">Fill Layer</span></button>
+            <button class="tool-btn" data-extra-action="clear-layer" title="Clear selected layer"><i class="fa-solid fa-trash-can"></i><span class="tool-tip">Clear Layer</span></button>
+          </div>
+        </div>
+
+        <!-- Navigation & Photoshop System Toggles -->
+        <div class="toolbox-divider"></div>
+        <div class="tool-section">
+          <button class="tool-btn" data-tool="hand" id="tool-hand" title="Hand / Pan Tool (H / Space+Drag)">
+            <i class="fa-solid fa-hand"></i>
+            <span class="tool-tip">Hand (H)</span>
+          </button>
+          <button class="tool-btn" data-tool="zoom" id="tool-zoom" title="Zoom Tool (Z)">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <span class="tool-tip">Zoom (Z)</span>
+          </button>
+          <button class="tool-btn" data-tool="quick-mask" id="tool-quick-mask" title="Quick Mask Mode Toggle (Q)">
+            <i class="fa-solid fa-circle-dot"></i>
+            <span class="tool-tip">Quick Mask (Q)</span>
+          </button>
+        </div>
+      </aside>
+
+      <!-- =====================================================================
+           ZONE 3: CENTER CANVAS WORKSPACE (MULTI-TAB VIEWPORT)
+           ===================================================================== -->
+      <section id="viewport-container" class="center-viewport">
+
+        <!-- Multi-Tab Document Bar -->
+        <div id="canvas-tabs-bar" class="canvas-tabs-bar">
+          <!-- Populated dynamically by DocumentManager -->
+        </div>
+
+        <!-- Top Horizontal Pixel Ruler -->
+        <div id="ruler-top-container" class="ruler-top">
+          <canvas id="ruler-x"></canvas>
+        </div>
+        <!-- Left Vertical Pixel Ruler -->
+        <div id="ruler-left-container" class="ruler-left">
+          <canvas id="ruler-y"></canvas>
+        </div>
+        <!-- Top-Left Corner Box -->
+        <div class="ruler-corner">px</div>
+
+        <!-- Infinite Pan & Zoom Canvas Stage Area -->
+        <div id="canvas-stage" class="canvas-stage">
+          <div id="canvas-wrapper" class="canvas-wrapper">
+            <!-- Transparency Checkerboard -->
+            <div class="canvas-transparency-grid"></div>
+
+            <!-- Virtual Multi-Layer Stack Container -->
+            <div id="layer-canvas-stack" class="layer-stack">
+              <!-- Dynamically populated canvas layers -->
+            </div>
+
+            <!-- Interaction Preview Canvas -->
+            <canvas id="overlay-canvas" class="overlay-canvas"></canvas>
+          </div>
+        </div>
+
+        <!-- Floating Quick Viewport Controls -->
+        <div class="viewport-floating-controls">
+          <button class="floating-btn" id="btn-zoom-fit-quick" title="Fit to Screen"><i class="fa-solid fa-expand"></i></button>
+          <button class="floating-btn" id="btn-zoom-100-quick" title="Reset 100%"><i class="fa-solid fa-arrows-rotate"></i></button>
+          <div class="floating-zoom-indicator" id="floating-zoom-val">100%</div>
+        </div>
+
+        <!-- PowerPoint Bottom Slides Strip (Slides Mode) -->
+        <div id="slides-deck-panel" class="slides-deck-panel hidden">
+          <div class="slides-deck-header">
+            <div class="slides-deck-title-group">
+              <span><i class="fa-solid fa-file-powerpoint"></i> Presentation Deck</span>
+              <select id="slide-preset-select" class="studio-select mini-select">
+                <option value="16:9" selected>16:9 Widescreen (1080p)</option>
+                <option value="4:3">4:3 Standard</option>
+              </select>
+            </div>
+            <div class="slides-deck-actions">
+              <button class="studio-btn mini primary" id="btn-slide-add"><i class="fa-solid fa-plus"></i> New Slide</button>
+              <button class="studio-btn mini" id="btn-slide-dup"><i class="fa-solid fa-copy"></i> Duplicate</button>
+              <button class="studio-btn mini danger" id="btn-slide-del"><i class="fa-solid fa-trash"></i> Delete</button>
+              <button class="studio-btn mini success" id="btn-slide-present"><i class="fa-solid fa-play"></i> Present (F5)</button>
+            </div>
+          </div>
+          <div id="slides-strip" class="slides-strip">
+            <!-- Dynamic slide cards -->
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================================================================
+           ZONE 4: RIGHT SIDE PANEL (DOCKABLE INSPECTOR)
+           ===================================================================== -->
+      <aside id="right-panel" class="studio-sidebar">
+        <!-- Sidebar Navigation Tabs -->
+        <div class="sidebar-tabs">
+          <button class="tab-btn active" data-tab="layers"><i class="fa-solid fa-layer-group"></i> Layers</button>
+          <button class="tab-btn" data-tab="history"><i class="fa-solid fa-clock-rotate-left"></i> History</button>
+          <button class="tab-btn" data-tab="adjustments"><i class="fa-solid fa-sliders"></i> Filters</button>
+          <button class="tab-btn" data-tab="assets"><i class="fa-solid fa-icons"></i> Canva</button>
+        </div>
+
+        <!-- Tab 1: Layers Management (Photoshop Grade) -->
+        <div class="sidebar-content active" id="tab-layers">
+          <div class="layer-options-header">
+            <div class="blend-mode-select-wrap">
+              <label for="layer-blend-mode">Blend:</label>
+              <select id="layer-blend-mode" class="studio-select blend-select">
+                <option value="source-over">Normal</option>
+                <option value="multiply">Multiply</option>
+                <option value="screen">Screen</option>
+                <option value="overlay">Overlay</option>
+                <option value="darken">Darken</option>
+                <option value="lighten">Lighten</option>
+                <option value="color-dodge">Color Dodge</option>
+                <option value="color-burn">Color Burn</option>
+                <option value="hard-light">Hard Light</option>
+                <option value="soft-light">Soft Light</option>
+                <option value="difference">Difference</option>
+                <option value="exclusion">Exclusion</option>
+                <option value="hue">Hue</option>
+                <option value="saturation">Saturation</option>
+                <option value="color">Color</option>
+                <option value="luminosity">Luminosity</option>
+              </select>
+            </div>
+
+            <div class="layer-opacity-wrap">
+              <label for="layer-opacity-slider">Opacity:</label>
+              <input type="range" id="layer-opacity-slider" min="0" max="100" value="100" class="studio-slider mini-slider">
+              <span id="layer-opacity-val" class="opacity-label">100%</span>
+            </div>
+          </div>
+
+          <!-- Layer Stack List -->
+          <div id="layers-list" class="layers-list-container">
+            <!-- Dynamic Layer items -->
+          </div>
+
+          <!-- Bottom Layer Actions Dock -->
+          <div class="layer-actions-dock">
+            <button class="layer-action-btn" id="btn-add-layer" title="Create New Layer"><i class="fa-solid fa-plus"></i></button>
+            <button class="layer-action-btn" id="btn-duplicate-layer" title="Duplicate Layer"><i class="fa-solid fa-copy"></i></button>
+            <button class="layer-action-btn" id="btn-move-layer-up" title="Move Layer Up"><i class="fa-solid fa-arrow-up"></i></button>
+            <button class="layer-action-btn" id="btn-move-layer-down" title="Move Layer Down"><i class="fa-solid fa-arrow-down"></i></button>
+            <button class="layer-action-btn" id="btn-merge-down" title="Merge Down"><i class="fa-solid fa-arrow-down-short-wide"></i></button>
+            <button class="layer-action-btn danger" id="btn-delete-layer" title="Delete Layer"><i class="fa-solid fa-trash-can"></i></button>
+          </div>
+        </div>
+
+        <!-- Tab 2: History (Photoshop Undo/Redo Timeline) -->
+        <div class="sidebar-content" id="tab-history">
+          <div class="history-header">
+            <span>Action Timeline</span>
+            <button class="history-clear-btn" id="btn-clear-history" title="Clear History States"><i class="fa-solid fa-broom"></i></button>
+          </div>
+          <div id="history-list" class="history-list-container">
+            <!-- Dynamic history states -->
+          </div>
+        </div>
+
+        <!-- Tab 3: Adjustments & Advanced Filters -->
+        <div class="sidebar-content" id="tab-adjustments">
+          <div class="panel-section-title">Color Adjustments</div>
+          <div class="filter-control">
+            <div class="filter-label"><span>Brightness</span><span id="val-brightness">0</span></div>
+            <input type="range" id="filter-brightness" min="-100" max="100" value="0" class="studio-slider">
+          </div>
+          <div class="filter-control">
+            <div class="filter-label"><span>Contrast</span><span id="val-contrast">0</span></div>
+            <input type="range" id="filter-contrast" min="-100" max="100" value="0" class="studio-slider">
+          </div>
+          <div class="filter-control">
+            <div class="filter-label"><span>Saturation</span><span id="val-saturation">0</span></div>
+            <input type="range" id="filter-saturation" min="-100" max="100" value="0" class="studio-slider">
+          </div>
+          <div class="filter-control">
+            <div class="filter-label"><span>Hue Rotation</span><span id="val-hue">0°</span></div>
+            <input type="range" id="filter-hue" min="-180" max="180" value="0" class="studio-slider">
+          </div>
+          <div class="filter-control">
+            <div class="filter-label"><span>Exposure</span><span id="val-exposure">0</span></div>
+            <input type="range" id="filter-exposure" min="-50" max="50" value="0" class="studio-slider">
+          </div>
+          <button class="studio-btn primary" id="btn-apply-color-adjustments" style="margin: 0 14px 10px;">Bake Adjustments</button>
+
+          <div class="panel-section-title">Photoshop Raster Filters</div>
+          <div class="filter-btn-grid">
+            <button class="studio-btn" id="btn-filter-sharpen"><i class="fa-solid fa-gem"></i> Sharpen</button>
+            <button class="studio-btn" id="btn-filter-blur"><i class="fa-solid fa-droplet"></i> Blur (3px)</button>
+            <button class="studio-btn" id="btn-filter-edges"><i class="fa-solid fa-lines-leaning"></i> Find Edges</button>
+            <button class="studio-btn" id="btn-filter-emboss"><i class="fa-solid fa-cube"></i> Emboss</button>
+            <button class="studio-btn" id="btn-filter-grayscale"><i class="fa-solid fa-circle-half-stroke"></i> Grayscale</button>
+            <button class="studio-btn" id="btn-filter-invert"><i class="fa-solid fa-circle-notch"></i> Invert</button>
+            <button class="studio-btn" id="btn-filter-sepia"><i class="fa-solid fa-sun"></i> Sepia</button>
+            <button class="studio-btn" id="btn-filter-vignette"><i class="fa-solid fa-bullseye"></i> Vignette</button>
+            <button class="studio-btn" id="btn-filter-pixelate"><i class="fa-solid fa-table-cells"></i> Pixelate</button>
+          </div>
+        </div>
+
+        <!-- Tab 4: Canva Asset Library -->
+        <div class="sidebar-content" id="tab-assets">
+          <div class="panel-section-title">Canva Stickers & Badges</div>
+          <div class="asset-category-title">Stickers & Emojis</div>
+          <div class="asset-grid">
+            <button class="asset-item" data-sticker="🚀">🚀</button>
+            <button class="asset-item" data-sticker="🔥">🔥</button>
+            <button class="asset-item" data-sticker="✨">✨</button>
+            <button class="asset-item" data-sticker="💡">💡</button>
+            <button class="asset-item" data-sticker="🎯">🎯</button>
+            <button class="asset-item" data-sticker="⭐">⭐</button>
+            <button class="asset-item" data-sticker="🎉">🎉</button>
+            <button class="asset-item" data-sticker="🏆">🏆</button>
+            <button class="asset-item" data-sticker="💻">💻</button>
+            <button class="asset-item" data-sticker="🎨">🎨</button>
+            <button class="asset-item" data-sticker="📈">📈</button>
+            <button class="asset-item" data-sticker="❤️">❤️</button>
+          </div>
+
+          <div class="asset-category-title">Vector Graphics & Templates</div>
+          <div class="asset-btn-stack">
+            <button class="studio-btn full-width" id="btn-asset-badge"><i class="fa-solid fa-certificate"></i> Premium Badge</button>
+            <button class="studio-btn full-width" id="btn-asset-heart"><i class="fa-solid fa-heart"></i> Heart Shape</button>
+            <button class="studio-btn full-width" id="btn-asset-arrow"><i class="fa-solid fa-arrow-right"></i> Marketing Arrow</button>
+            <button class="studio-btn full-width" id="btn-asset-text"><i class="fa-solid fa-heading"></i> Headline Text</button>
+            <button class="studio-btn full-width success" id="btn-canva-bg-remover"><i class="fa-solid fa-wand-magic-sparkles"></i> AI Background Remover</button>
+            <button class="studio-btn full-width" id="btn-canva-extract-palette"><i class="fa-solid fa-palette"></i> Extract Color Palette</button>
+          </div>
+
+          <div class="panel-section-title">Vector Object Actions</div>
+          <div class="asset-btn-stack">
+            <button class="studio-btn full-width" id="btn-obj-front"><i class="fa-solid fa-bring-forward"></i> Bring to Front</button>
+            <button class="studio-btn full-width" id="btn-obj-back"><i class="fa-solid fa-send-backward"></i> Send to Back</button>
+            <button class="studio-btn full-width danger" id="btn-obj-delete"><i class="fa-solid fa-trash"></i> Delete Selected</button>
+          </div>
+        </div>
+      </aside>
+
+    </main>
+
+    <!-- =========================================================================
+         ZONE 5: BOTTOM STATUS BAR
+         ========================================================================= -->
+    <footer id="bottom-status-bar" class="studio-status-bar">
+      <div class="status-left">
+        <span class="status-indicator online"></span>
+        <span id="status-message" class="status-item">Ready</span>
+        <span class="status-separator">|</span>
+        <span class="status-item"><i class="fa-solid fa-layer-group"></i> Active: <strong id="status-active-layer">Layer 1</strong></span>
+        <span class="status-separator">|</span>
+        <span class="status-chip active" id="status-auto-layer-chip" title="Click to toggle Auto-Layer mode (Auto-creates new layer on each action)"><i class="fa-solid fa-layer-group"></i> Auto-Layer: ON</span>
+        <span class="status-chip caps-chip" id="status-caps-chip" title="Caps Lock brush outline mode (Click to toggle)"><i class="fa-solid fa-circle-dot"></i> Circle</span>
+      </div>
+
+      <div class="status-center">
+        <span class="status-item"><i class="fa-regular fa-compass"></i> Cursor: <span id="status-cursor-coords">0, 0 px</span></span>
+        <span class="status-separator">|</span>
+        <span class="status-item"><i class="fa-solid fa-vector-square"></i> Canvas: <span id="status-canvas-size">1920 x 1080 px</span></span>
+        <span class="status-separator">|</span>
+        <span class="status-item" id="status-word-count"><i class="fa-solid fa-font"></i> Words: 0 | Chars: 0</span>
+        <span class="status-separator">|</span>
+        <span class="status-item"><i class="fa-solid fa-gauge-high"></i> <strong id="status-fps">60 FPS</strong></span>
+      </div>
+
+      <div class="status-right">
+        <button class="status-btn" id="btn-zoom-out-status" title="Zoom Out"><i class="fa-solid fa-minus"></i></button>
+        <div class="zoom-slider-wrap">
+          <input type="range" id="zoom-range-slider" min="10" max="500" value="100" class="status-slider">
+          <span id="status-zoom-percentage">100%</span>
+        </div>
+        <button class="status-btn" id="btn-zoom-in-status" title="Zoom In"><i class="fa-solid fa-plus"></i></button>
+        <span class="status-separator">|</span>
+        <button class="status-btn-link" id="btn-status-shortcuts" title="Keyboard Shortcuts"><i class="fa-solid fa-keyboard"></i></button>
+      </div>
+    </footer>
+
+    <!-- =========================================================================
+         MODALS & DIALOGS
+         ========================================================================= -->
+
+    <!-- Excel Dynamic Table Generator Modal -->
+    <div id="table-modal" class="studio-modal hidden">
+      <div class="modal-backdrop"></div>
+      <div class="modal-card wide">
+        <div class="modal-header">
+          <h3><i class="fa-solid fa-table"></i> Dynamic Excel Spreadsheet Table Generator</h3>
+          <button class="modal-close-btn" id="btn-table-close"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="modal-body">
+          <div class="form-row-grid">
+            <div class="form-field">
+              <label>Table Theme Style:</label>
+              <select id="table-theme-select" class="studio-select full-width">
+                <option value="corporate">Corporate Blue</option>
+                <option value="emerald">Emerald Green</option>
+                <option value="obsidian">Dark Obsidian</option>
+                <option value="amber">Warm Amber</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label>Formulas Available:</label>
+              <span class="ctx-label" style="padding-top:6px;">=SUM, =AVERAGE, =MIN, =MAX, =COUNT</span>
+            </div>
+          </div>
+          <div class="form-row">
+            <label>Column Headers (Comma separated):</label>
+            <input type="text" id="table-headers-input" value="Item, Qty, Rate, Total" class="studio-input">
+          </div>
+          <div class="form-row">
+            <label>Table Rows (One per line, comma separated):</label>
+            <textarea id="table-rows-input" rows="4" class="studio-input full-width">Design System, 1, $1200, =$B1*$C1
+Canvas Engine, 1, $2400, =$B2*$C2
+Photoshop Suite, 1, $1800, =$B3*$C3
+Grand Total, =COUNT(A1:A3), , =SUM(D1:D3)</textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="studio-btn secondary" id="btn-table-cancel">Cancel</button>
+          <button class="studio-btn primary" id="btn-table-generate"><i class="fa-solid fa-check"></i> Insert Spreadsheet</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Find and Replace Modal -->
+    <div id="find-replace-modal" class="studio-modal hidden">
+      <div class="modal-backdrop"></div>
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3><i class="fa-solid fa-magnifying-glass"></i> Find and Replace Text</h3>
+          <button class="modal-close-btn" id="btn-find-close"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="modal-body">
+          <div class="form-row">
+            <label>Find what:</label>
+            <input type="text" id="find-input" class="studio-input" placeholder="Search term...">
+          </div>
+          <div class="form-row">
+            <label>Replace with:</label>
+            <input type="text" id="replace-input" class="studio-input" placeholder="Replacement...">
+          </div>
+          <div class="form-row">
+            <label class="ctx-checkbox">
+              <input type="checkbox" id="find-match-case">
+              <span>Match case</span>
+            </label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="studio-btn secondary" id="btn-find-cancel">Cancel</button>
+          <button class="studio-btn primary" id="btn-find-submit">Replace All</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Excel Chart Generator Modal -->
+    <div id="chart-modal" class="studio-modal hidden">
+      <div class="modal-backdrop"></div>
+      <div class="modal-card wide">
+        <div class="modal-header">
+          <h3><i class="fa-solid fa-chart-column"></i> Excel Chart & Visualization Studio</h3>
+          <button class="modal-close-btn" id="btn-chart-close"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="modal-body">
+          <div class="form-row-grid">
+            <div class="form-field">
+              <label>Chart Type:</label>
+              <select id="chart-type-select" class="studio-select full-width">
+                <option value="bar">Bar Chart</option>
+                <option value="line">Line Chart</option>
+                <option value="pie">Pie Chart</option>
+                <option value="doughnut">Doughnut Chart</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label>Chart Title:</label>
+              <input type="text" id="chart-title-input" value="Sales Revenue Breakdown" class="studio-input">
+            </div>
+          </div>
+          <div class="form-row">
+            <label>Categories (Comma separated):</label>
+            <input type="text" id="chart-labels-input" value="Q1, Q2, Q3, Q4, Q5" class="studio-input">
+          </div>
+          <div class="form-row">
+            <label>Values (Comma separated numbers):</label>
+            <input type="text" id="chart-values-input" value="45, 80, 65, 95, 110" class="studio-input">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="studio-btn secondary" id="btn-chart-cancel">Cancel</button>
+          <button class="studio-btn primary" id="btn-chart-generate"><i class="fa-solid fa-check"></i> Insert Chart onto Canvas</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Text Edit Modal -->
+    <div id="text-edit-modal" class="studio-modal hidden">
+      <div class="modal-backdrop"></div>
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3><i class="fa-solid fa-pen-to-square"></i> Edit Text Content</h3>
+          <button class="modal-close-btn" id="btn-text-modal-close"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="modal-body">
+          <div class="form-row">
+            <label>Text:</label>
+            <textarea id="text-modal-input" rows="4" class="studio-input full-width" style="resize:vertical;"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="studio-btn secondary" id="btn-text-modal-cancel">Cancel</button>
+          <button class="studio-btn primary" id="btn-text-modal-apply">Update Text</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- High-Res Export Studio Modal -->
+    <div id="export-modal" class="studio-modal hidden">
+      <div class="modal-backdrop"></div>
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3><i class="fa-solid fa-download"></i> High-Resolution Export Studio</h3>
+          <button class="modal-close-btn" id="btn-export-close"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="modal-body">
+          <div class="form-row">
+            <label>Format:</label>
+            <select id="export-format-select" class="studio-select full-width">
+              <option value="png">PNG Image (Lossless / Transparency)</option>
+              <option value="jpeg">JPEG Image (High Quality)</option>
+              <option value="webp">WebP Modern Web Image</option>
+              <option value="pdf">Multi-Page PDF Document (Vector Print-ready)</option>
+              <option value="svg">SVG Vector Graphics</option>
+              <option value="json">Raw Project File (.json)</option>
+            </select>
+          </div>
+          <div class="form-row" id="export-scale-row">
+            <label>Resolution Multiplier:</label>
+            <div class="radio-row">
+              <label><input type="radio" name="export-scale" value="1" checked> 1x (Standard)</label>
+              <label><input type="radio" name="export-scale" value="2"> 2x (Retina HD)</label>
+              <label><input type="radio" name="export-scale" value="4"> 4x (Ultra 4K/8K)</label>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="studio-btn secondary" id="btn-export-cancel">Cancel</button>
+          <button class="studio-btn primary" id="btn-export-confirm"><i class="fa-solid fa-download"></i> Export Now</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- New Canvas Dialog -->
+    <div id="new-canvas-modal" class="studio-modal hidden">
+      <div class="modal-backdrop"></div>
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3><i class="fa-solid fa-file-circle-plus"></i> Create New Canvas</h3>
+          <button class="modal-close-btn" id="btn-modal-new-close"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="modal-body">
+          <div class="form-row">
+            <label>Preset Templates:</label>
+            <select id="preset-selector" class="studio-select full-width">
+              <option value="1280x720">HD 720p (1280 x 720)</option>
+              <option value="1920x1080" selected>Full HD 1080p (1920 x 1080)</option>
+              <option value="800x600">Classic Paint (800 x 600)</option>
+              <option value="1080x1080">Instagram Post (1080 x 1080)</option>
+              <option value="1200x630">Social Card (1200 x 630)</option>
+              <option value="a4">Standard A4 Print (2480 x 3508)</option>
+            </select>
+          </div>
+          <div class="form-row-grid">
+            <div class="form-field">
+              <label for="new-canvas-width">Width (px):</label>
+              <input type="number" id="new-canvas-width" value="1920" min="100" max="8000" class="studio-input">
+            </div>
+            <div class="form-field">
+              <label for="new-canvas-height">Height (px):</label>
+              <input type="number" id="new-canvas-height" value="1080" min="100" max="8000" class="studio-input">
+            </div>
+          </div>
+          <div class="form-row">
+            <label>Background Fill:</label>
+            <div class="radio-row">
+              <label><input type="radio" name="bg-type" value="white" checked> White</label>
+              <label><input type="radio" name="bg-type" value="transparent"> Transparent</label>
+              <label><input type="radio" name="bg-type" value="black"> Black</label>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="studio-btn secondary" id="btn-modal-new-cancel">Cancel</button>
+          <button class="studio-btn primary" id="btn-modal-new-create">Create Canvas</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Shortcuts Dialog -->
+    <div id="shortcuts-modal" class="studio-modal hidden">
+      <div class="modal-backdrop"></div>
+      <div class="modal-card wide">
+        <div class="modal-header">
+          <h3><i class="fa-solid fa-keyboard"></i> Studio Keyboard Shortcuts</h3>
+          <button class="modal-close-btn" id="btn-modal-shortcuts-close"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="modal-body">
+          <div class="shortcuts-grid">
+            <div class="shortcut-col">
+              <h4>Tools</h4>
+              <div class="sc-item"><kbd>B</kbd><span>Brush Tool</span></div>
+              <div class="sc-item"><kbd>P</kbd><span>Pencil Tool</span></div>
+              <div class="sc-item"><kbd>E</kbd><span>Eraser Tool</span></div>
+              <div class="sc-item"><kbd>G</kbd><span>Paint Bucket (Flood Fill)</span></div>
+              <div class="sc-item"><kbd>S</kbd><span>Clone Stamp Tool (Alt+Click)</span></div>
+              <div class="sc-item"><kbd>I</kbd><span>Eyedropper / Color Picker</span></div>
+              <div class="sc-item"><kbd>U</kbd><span>Shape Tool</span></div>
+              <div class="sc-item"><kbd>T</kbd><span>Word Rich Text Tool</span></div>
+              <div class="sc-item"><kbd>M</kbd><span>Marquee Selection</span></div>
+              <div class="sc-item"><kbd>L</kbd><span>Lasso Selection</span></div>
+              <div class="sc-item"><kbd>W</kbd><span>Magic Wand Selection</span></div>
+              <div class="sc-item"><kbd>V</kbd><span>Select / Move Tool</span></div>
+            </div>
+            <div class="shortcut-col">
+              <h4>Operations & Studio</h4>
+              <div class="sc-item"><kbd>Ctrl</kbd> + <kbd>T</kbd><span>Free Transform</span></div>
+              <div class="sc-item"><kbd>Ctrl</kbd> + <kbd>C</kbd><span>Copy Selection</span></div>
+              <div class="sc-item"><kbd>Ctrl</kbd> + <kbd>X</kbd><span>Cut Selection</span></div>
+              <div class="sc-item"><kbd>Ctrl</kbd> + <kbd>V</kbd><span>Paste Layer</span></div>
+              <div class="sc-item"><kbd>Ctrl</kbd> + <kbd>D</kbd><span>Deselect</span></div>
+              <div class="sc-item"><kbd>Ctrl</kbd> + <kbd>F</kbd><span>Find and Replace</span></div>
+              <div class="sc-item"><kbd>F5</kbd><span>Present Slides Fullscreen</span></div>
+              <div class="sc-item"><kbd>Ctrl</kbd> + <kbd>Z</kbd><span>Undo</span></div>
+              <div class="sc-item"><kbd>Ctrl</kbd> + <kbd>Y</kbd><span>Redo</span></div>
+              <div class="sc-item"><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>N</kbd><span>New Layer</span></div>
+              <div class="sc-item"><kbd>Ctrl</kbd> + <kbd>J</kbd><span>Duplicate Layer</span></div>
+              <div class="sc-item"><kbd>X</kbd><span>Swap Colors</span></div>
+              <div class="sc-item"><kbd>D</kbd><span>Default Black & White</span></div>
+              <div class="sc-item"><kbd>[</kbd> / <kbd>]</kbd><span>Brush Size</span></div>
+              <div class="sc-item"><kbd>Space</kbd> + Drag<span>Pan Canvas</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="studio-btn primary" id="btn-modal-shortcuts-ok">Got it</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Modular Scripts -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
